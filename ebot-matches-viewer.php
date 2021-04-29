@@ -59,22 +59,22 @@ class emv_widget extends WP_Widget{
      * @param array $args     Widget arguments.
      * @param array $instance Saved values from database.
     */
-	public function widget($args,$d){
+	public function widget($args,$instance){
 		extract($args);
 		echo $before_widget;
-		echo $before_title.$d["titre"].$after_title;
+		echo $before_title.$instance["titre"].$after_title;
 		?>
 		<?
 		
-			if ($d["typeconnect"] == "A"){
+			if ($instance["typeconnect"] == "A"){
 				/* Connection Distante mysql */
-				$host= $d["host"];
-				$dbnamedist= $d["dbnamedistant"];
-				$userdist= $d["userdistant"];
-				$passworddist= $d["passworddistant"];
-				$nbrmax= $d["nbrmax"];
+				$host= $instance["host"];
+				$instancebnamedist= $instance["dbnamedistant"];
+				$userdist= $instance["userdistant"];
+				$passworddist= $instance["passworddistant"];
+				$nbrmax= $instance["nbrmax"];
 					try{
-					$bdd = new PDO('mysql:host='.$host.';dbname='.$dbnamedist.'', ''.$userdist.'', ''.$passworddist.'');
+					$bdd = new PDO('mysql:host='.$host.';dbname='.$instancebnamedist.'', ''.$userdist.'', ''.$passworddist.'');
 					$affreq = $bdd->prepare('SELECT * FROM matchs ORDER BY id DESC LIMIT 0, '.$nbrmax.'');
 					$affreq->execute();
 					}
@@ -83,16 +83,16 @@ class emv_widget extends WP_Widget{
 							die('Erreur : ' . $e->getMessage());
 					}			
 			}
-			if ($d["typeconnect"] == "B"){
+			if ($instance["typeconnect"] == "B"){
 				echo "Option B en developement";
 			}
-			if ($d["typeconnect"] == "C"){
-				$dbnamelocal= $d["dbnamelocal"];
-				$userlocal= $d["userlocal"];
-				$passwordlocal= $d["passwordlocal"];
-				$nbrmax= $d["nbrmax"];
+			if ($instance["typeconnect"] == "C"){
+				$instancebnamelocal= $instance["dbnamelocal"];
+				$userlocal= $instance["userlocal"];
+				$passwordlocal= $instance["passwordlocal"];
+				$nbrmax= $instance["nbrmax"];
 					try{
-					$bdd = new PDO('mysql:host=localhost;dbname='.$dbnamelocal.'', ''.$userlocal.'', ''.$passwordlocal.'');	
+					$bdd = new PDO('mysql:host=localhost;dbname='.$instancebnamelocal.'', ''.$userlocal.'', ''.$passwordlocal.'');	
 					$req = 'SELECT * FROM matchs ORDER BY id DESC LIMIT 0, '.$nbrmax.'';
 					
 					echo 'Connecter à la base Mysql locale. <br />';	
@@ -135,8 +135,8 @@ class emv_widget extends WP_Widget{
      *
      * @param array $instance Previously saved values from database.
     */
-	public function form( $d ) {
-		$defaut = array(
+	public function form( $instance ) {
+		$instanceefaut = array(
 			"titre" => "eBoT Matches",
 			"nbrmax" => "5",
 			"userdistant" => "ebotv3",
@@ -144,20 +144,20 @@ class emv_widget extends WP_Widget{
 			"dbnamedistant" => "ebotv3",
 			"dbnamelocal" => "ebotv3"
 		);
-		$d = wp_parse_args($d,$defaut)
+		$instance = wp_parse_args($instance,$instanceefaut)
 		?>
 			<div id="form">
 			<p>
 				<label for="<?php echo $this->get_field_id("titre"); ?>">Titre : </label>
-				<input value="<?echo $d["titre"];?>" name="<?php echo $this->get_field_name("titre"); ?>" id="<?php echo $this->get_field_id("titre"); ?>" type="text"/>
+				<input value="<?echo $instance["titre"];?>" name="<?php echo $this->get_field_name("titre"); ?>" id="<?php echo $this->get_field_id("titre"); ?>" type="text"/>
 			</p>
 			<p>
 				<label for="<?php echo $this->get_field_id("nbrmax"); ?>">Nombre max de match : </label>
-				<input value="<?echo $d["nbrmax"];?>" name="<?php echo $this->get_field_name("nbrmax"); ?>" id="<?php echo $this->get_field_id("nbrmax"); ?>" type="text" maxlength="1"/>
+				<input value="<?echo $instance["nbrmax"];?>" name="<?php echo $this->get_field_name("nbrmax"); ?>" id="<?php echo $this->get_field_id("nbrmax"); ?>" type="text" maxlength="1"/>
 			</p>
 			<p>
 				<label for="<?php echo $this->get_field_id("typeconnect"); ?>">Type de connection : </label>
-				<select value="<?echo $d["typeconnect"];?>" name="<?php echo $this->get_field_name("typeconnect");?>" id="<?php echo $this->get_field_id("typeconnect"); ?>">
+				<select value="<?echo $instance["typeconnect"];?>" name="<?php echo $this->get_field_name("typeconnect");?>" id="<?php echo $this->get_field_id("typeconnect"); ?>">
 					<option value="A">Distant (Option:A)</option>
 					<option value="B">Online (Option:B)</option>
 					<option value="C">Local (Option:C)</option>
@@ -168,19 +168,19 @@ class emv_widget extends WP_Widget{
 				<p>Option A "Distant":</p>
 					<p>
 						<label for="<?php echo $this->get_field_id("host"); ?>">Ip du Host : </label>
-						<input value="<?echo $d["host"];?>" name="<?php echo $this->get_field_name("host"); ?>" id="<?php echo $this->get_field_id("host"); ?>" type="text"/>
+						<input value="<?echo $instance["host"];?>" name="<?php echo $this->get_field_name("host"); ?>" id="<?php echo $this->get_field_id("host"); ?>" type="text"/>
 					</p>
 					<p>
 						<label for="<?php echo $this->get_field_id("dbnamedistant"); ?>">Nom de la Base de donnée : </label>
-						<input value="<?echo $d["dbnamedistant"];?>" name="<?php echo $this->get_field_name("dbnamedistant"); ?>" id="<?php echo $this->get_field_id("dbnamedistant"); ?>" type="text"/>
+						<input value="<?echo $instance["dbnamedistant"];?>" name="<?php echo $this->get_field_name("dbnamedistant"); ?>" id="<?php echo $this->get_field_id("dbnamedistant"); ?>" type="text"/>
 					</p>
 					<p>
 						<label for="<?php echo $this->get_field_id("userdistant"); ?>">Utilisateur "login" : </label>
-						<input value="<?echo $d["userdistant"];?>" name="<?php echo $this->get_field_name("userdistant"); ?>" id="<?php echo $this->get_field_id("userdistant"); ?>" type="text"/>
+						<input value="<?echo $instance["userdistant"];?>" name="<?php echo $this->get_field_name("userdistant"); ?>" id="<?php echo $this->get_field_id("userdistant"); ?>" type="text"/>
 					</p>
 					<p>
 						<label for="<?php echo $this->get_field_id("passworddistant"); ?>">Password : </label>
-						<input value="<?echo $d["passworddistant"];?>" name="<?php echo $this->get_field_name("passworddistant"); ?>" id="<?php echo $this->get_field_id("passworddistant"); ?>" type="text"/>
+						<input value="<?echo $instance["passworddistant"];?>" name="<?php echo $this->get_field_name("passworddistant"); ?>" id="<?php echo $this->get_field_id("passworddistant"); ?>" type="text"/>
 					</p>
 			</div>
 			<hr>
@@ -188,7 +188,7 @@ class emv_widget extends WP_Widget{
 				<p>Option B "Online": "Non fonctionnel"</p>
 					<p> En developement !
 						<!-- <label for="<?php echo $this->get_field_id("nom-team"); ?>">Nom Team à afficher : </label>
-						<input value="<?echo $d["nom-team"];?>" name="<?php echo $this->get_field_name("nom-team"); ?>" id="<?php echo $this->get_field_id("nom-team"); ?>" type="text"/> -->
+						<input value="<?echo $instance["nom-team"];?>" name="<?php echo $this->get_field_name("nom-team"); ?>" id="<?php echo $this->get_field_id("nom-team"); ?>" type="text"/> -->
 					</p>
 			</div>
 			<hr>
@@ -196,15 +196,15 @@ class emv_widget extends WP_Widget{
 				<p>Option C "Local:</p>
 					<p>
 						<label for="<?php echo $this->get_field_id("dbnamelocal"); ?>">Nom de la Base de donnée : </label>
-						<input value="<?echo $d["dbnamelocal"];?>" name="<?php echo $this->get_field_name("dbnamelocal"); ?>" id="<?php echo $this->get_field_id("dbnamelocal"); ?>" type="text"/>
+						<input value="<?echo $instance["dbnamelocal"];?>" name="<?php echo $this->get_field_name("dbnamelocal"); ?>" id="<?php echo $this->get_field_id("dbnamelocal"); ?>" type="text"/>
 					</p>
 					<p>
 						<label for="<?php echo $this->get_field_id("userlocal"); ?>">Utilisateur "login" : </label>
-						<input value="<?echo $d["userlocal"];?>" name="<?php echo $this->get_field_name("userlocal"); ?>" id="<?php echo $this->get_field_id("userlocal"); ?>" type="text"/>
+						<input value="<?echo $instance["userlocal"];?>" name="<?php echo $this->get_field_name("userlocal"); ?>" id="<?php echo $this->get_field_id("userlocal"); ?>" type="text"/>
 					</p>
 					<p>
 						<label for="<?php echo $this->get_field_id("passwordlocal"); ?>">Password : </label>
-						<input value="<?echo $d["passwordlocal"];?>" name="<?php echo $this->get_field_name("passwordlocal"); ?>" id="<?php echo $this->get_field_id("passwordlocal"); ?>" type="text"/>
+						<input value="<?echo $instance["passwordlocal"];?>" name="<?php echo $this->get_field_name("passwordlocal"); ?>" id="<?php echo $this->get_field_id("passwordlocal"); ?>" type="text"/>
 					</p>
 			</div>
 			<p>Merci DeStrO pour l'eBot. Widget dev. par Bouman.</p>
@@ -221,16 +221,16 @@ class emv_widget extends WP_Widget{
      *
      * @return array Updated safe values to be saved.
     */
-	function update($new_d, $old_d){
-		$d = array();
-        $d['titre'] = ( !empty( $new_d['titre'] ) ) ? strip_tags( $new_d['titre'] ) : '';
-        $d['nbrmax'] = ( !empty( $new_d['nbrmax'] ) ) ? $new_d['nbrmax'] : '';
-        $d['userdistant'] = ( !empty( $new_d['userdistant'] ) ) ? strip_tags( $new_d['userdistant'] ) : '';
-        $d['userlocal'] = ( !empty( $new_d['userlocal'] ) ) ? $new_d['userlocal'] : '';
-		$d['dbnamedistant'] = ( !empty( $new_d['dbnamedistant'] ) ) ? strip_tags( $new_d['dbnamedistant'] ) : '';
-        $d['dbnamelocal'] = ( !empty( $new_d['dbnamelocal'] ) ) ? $new_d['dbnamelocal'] : '';
+	function update($new_instance, $old_instance){
+		$instance = array();
+        $instance['titre'] = ( !empty( $new_instance['titre'] ) ) ? strip_tags( $new_instance['titre'] ) : '';
+        $instance['nbrmax'] = ( !empty( $new_instance['nbrmax'] ) ) ? $new_instance['nbrmax'] : '';
+        $instance['userdistant'] = ( !empty( $new_instance['userdistant'] ) ) ? strip_tags( $new_instance['userdistant'] ) : '';
+        $instance['userlocal'] = ( !empty( $new_instance['userlocal'] ) ) ? $new_instance['userlocal'] : '';
+		$instance['dbnamedistant'] = ( !empty( $new_instance['dbnamedistant'] ) ) ? strip_tags( $new_instance['dbnamedistant'] ) : '';
+        $instance['dbnamelocal'] = ( !empty( $new_instance['dbnamelocal'] ) ) ? $new_instance['dbnamelocal'] : '';
 		
-		return $new_d;
+		return $new_instance;
 	}
 }
 ?>
