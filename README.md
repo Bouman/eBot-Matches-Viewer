@@ -43,8 +43,8 @@ Your server Mysql eBot is different that website.
 	
 Step 1: Give power in phpmyadmin on Server eBot:
 SQL Command : 
-grant all privileges on *.* to user@IP-web identified by "motdepassemysql";    ===> //// user = (Exemple: ebotv3)  IP-web = (Exemple: gw8.ovh.net) Your website is from OVH.
-flush privileges;
+	grant all privileges on *.* to user@IP-web identified by "motdepassemysql";    ===> //// user = (Exemple: ebotv3)  IP-web = (Exemple: gw8.ovh.net) Your website is from OVH.
+	flush privileges;
 				
 Step 2: Connecting on dedicated server by SSH - Putty - :
 Command :
