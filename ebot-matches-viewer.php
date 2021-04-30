@@ -73,13 +73,13 @@ class emv_widget extends WP_Widget{
 				$passworddist= $instance["passworddistant"];
 				$nbrmax= $instance["nbrmax"];
 					try{
-					$bdd = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbnamedist.'', ''.$userdist.'', ''.$passworddist.'');
+					$bdd = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbnamedist.'', ''.$userdist.'', ''.$passworddist.'', array(PDO::ATTR_TIMEOUT => 5));
 					$affreq = $bdd->prepare('SELECT * FROM matchs ORDER BY id DESC LIMIT 0, '.$nbrmax.'');
 					$affreq->execute();
 					}
 					catch (Exception $e)
 					{
-							die('Erreur : ' . $e->getMessage());
+							echo 'Désolé problème de connexion';
 					}			
 		
 		
@@ -176,7 +176,9 @@ class emv_widget extends WP_Widget{
 							}
 							catch (Exception $e)
 							{
-								echo 'Erreur : ' . $e->getMessage();
+								echo 'Aïiih ! Probleme de connexion : ' . $e->getMessage();
+								echo '<br>Erreur de Time-out = Mauvaise configuration host,port,user,password';
+								echo '<br>Refus de connexion = Autoriser le domain IP-web de votre hébergeur "STEP 1 & 2"';
 							}
 						?></p>
 					<hr>
