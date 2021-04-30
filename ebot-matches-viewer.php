@@ -1,19 +1,19 @@
 <!-- Ici Le CSS du tableau d'affichage -->
 <style>
 table.ebot tr:nth-child(odd){
-  background-color:#282828 ;
+  background-color:#282828 transparent;
 }
 table.ebot {
 	border: 0pt;
 }
 th.ebot {
-	border: 1pt solid black;
+	border: 1pt solid grey;
 	-moz-border-radius:10px;
 	-webkit-border-radius:10px;
 	border-radius:10px;
 }
 tr.border_bottom td {
-	border-bottom: 1pt solid black;
+	border-bottom: 1pt solid grey;
 	border-right: 0pt;
 }
 </style>
@@ -64,9 +64,7 @@ class emv_widget extends WP_Widget{
 		echo $before_widget;
 		echo $before_title.$instance["titre"].$after_title;
 		?>
-		<?
-		
-			if ($instance["typeconnect"] == "A"){
+		<?	
 				/* Connection Distante mysql */
 				$host= $instance["host"];
 				$instancebnamedist= $instance["dbnamedistant"];
@@ -82,27 +80,8 @@ class emv_widget extends WP_Widget{
 					{
 							die('Erreur : ' . $e->getMessage());
 					}			
-			}
-			if ($instance["typeconnect"] == "B"){
-				echo "Option B en developement";
-			}
-			if ($instance["typeconnect"] == "C"){
-				$instancebnamelocal= $instance["dbnamelocal"];
-				$userlocal= $instance["userlocal"];
-				$passwordlocal= $instance["passwordlocal"];
-				$nbrmax= $instance["nbrmax"];
-					try{
-					$bdd = new PDO('mysql:host=localhost;dbname='.$instancebnamelocal.'', ''.$userlocal.'', ''.$passwordlocal.'');	
-					$req = 'SELECT * FROM matchs ORDER BY id DESC LIMIT 0, '.$nbrmax.'';
-					
-					echo 'Connecter à la base Mysql locale. <br />';	
-					}
-					catch (Exception $e)
-					{
-							die('Erreur : ' . $e->getMessage());
-					}	
-			}
-			
+		
+		
 			echo'<table class="ebot">';
 			echo "<tr><th class='ebot'>#Id</th><th class='ebot'>Score</th></tr>";
 					while($row = $affreq->fetch(PDO::FETCH_ASSOC)){
@@ -136,15 +115,14 @@ class emv_widget extends WP_Widget{
      * @param array $instance Previously saved values from database.
     */
 	public function form( $instance ) {
-		$instanceefaut = array(
+		$instancedefaut = array(
 			"titre" => "eBoT Matches",
 			"nbrmax" => "5",
+			"port" => "3306",
 			"userdistant" => "ebotv3",
-			"userlocal" => "ebotv3",
-			"dbnamedistant" => "ebotv3",
-			"dbnamelocal" => "ebotv3"
+			"dbnamedistant" => "ebotv3"
 		);
-		$instance = wp_parse_args($instance,$instanceefaut)
+		$instance = wp_parse_args($instance,$instancedefaut)
 		?>
 			<div id="form">
 			<p>
@@ -155,20 +133,17 @@ class emv_widget extends WP_Widget{
 				<label for="<?php echo $this->get_field_id("nbrmax"); ?>">Nombre max de match : </label>
 				<input value="<?echo $instance["nbrmax"];?>" name="<?php echo $this->get_field_name("nbrmax"); ?>" id="<?php echo $this->get_field_id("nbrmax"); ?>" type="text" maxlength="1"/>
 			</p>
-			<p>
-				<label for="<?php echo $this->get_field_id("typeconnect"); ?>">Type de connection : </label>
-				<select value="<?echo $instance["typeconnect"];?>" name="<?php echo $this->get_field_name("typeconnect");?>" id="<?php echo $this->get_field_id("typeconnect"); ?>">
-					<option value="A">Distant (Option:A)</option>
-					<option value="B">Online (Option:B)</option>
-					<option value="C">Local (Option:C)</option>
-				</select>
-			</p>
 			</div>
+			<hr>
 			<div id="A" class="divoption">
-				<p>Option A "Distant":</p>
+				<p>Connexion Database eBot :</p>
 					<p>
 						<label for="<?php echo $this->get_field_id("host"); ?>">Ip du Host : </label>
 						<input value="<?echo $instance["host"];?>" name="<?php echo $this->get_field_name("host"); ?>" id="<?php echo $this->get_field_id("host"); ?>" type="text"/>
+					</p>
+					<p>
+						<label for="<?php echo $this->get_field_id("port"); ?>">Port : </label>
+						<input value="<?echo $instance["port"];?>" name="<?php echo $this->get_field_name("port"); ?>" id="<?php echo $this->get_field_id("port"); ?>" type="text"/>
 					</p>
 					<p>
 						<label for="<?php echo $this->get_field_id("dbnamedistant"); ?>">Nom de la Base de donnée : </label>
@@ -184,29 +159,6 @@ class emv_widget extends WP_Widget{
 					</p>
 			</div>
 			<hr>
-			<div id="B" class="divoption">
-				<p>Option B "Online": "Non fonctionnel"</p>
-					<p> En developement !
-						<!-- <label for="<?php echo $this->get_field_id("nom-team"); ?>">Nom Team à afficher : </label>
-						<input value="<?echo $instance["nom-team"];?>" name="<?php echo $this->get_field_name("nom-team"); ?>" id="<?php echo $this->get_field_id("nom-team"); ?>" type="text"/> -->
-					</p>
-			</div>
-			<hr>
-			<div id="C" class="divoption">
-				<p>Option C "Local:</p>
-					<p>
-						<label for="<?php echo $this->get_field_id("dbnamelocal"); ?>">Nom de la Base de donnée : </label>
-						<input value="<?echo $instance["dbnamelocal"];?>" name="<?php echo $this->get_field_name("dbnamelocal"); ?>" id="<?php echo $this->get_field_id("dbnamelocal"); ?>" type="text"/>
-					</p>
-					<p>
-						<label for="<?php echo $this->get_field_id("userlocal"); ?>">Utilisateur "login" : </label>
-						<input value="<?echo $instance["userlocal"];?>" name="<?php echo $this->get_field_name("userlocal"); ?>" id="<?php echo $this->get_field_id("userlocal"); ?>" type="text"/>
-					</p>
-					<p>
-						<label for="<?php echo $this->get_field_id("passwordlocal"); ?>">Password : </label>
-						<input value="<?echo $instance["passwordlocal"];?>" name="<?php echo $this->get_field_name("passwordlocal"); ?>" id="<?php echo $this->get_field_id("passwordlocal"); ?>" type="text"/>
-					</p>
-			</div>
 			<p>Merci DeStrO pour l'eBot. Widget dev. par Bouman.</p>
 		<?
 	}
@@ -223,13 +175,13 @@ class emv_widget extends WP_Widget{
     */
 	function update($new_instance, $old_instance){
 		$instance = array();
-        $instance['titre'] = ( !empty( $new_instance['titre'] ) ) ? strip_tags( $new_instance['titre'] ) : '';
-        $instance['nbrmax'] = ( !empty( $new_instance['nbrmax'] ) ) ? $new_instance['nbrmax'] : '';
-        $instance['userdistant'] = ( !empty( $new_instance['userdistant'] ) ) ? strip_tags( $new_instance['userdistant'] ) : '';
-        $instance['userlocal'] = ( !empty( $new_instance['userlocal'] ) ) ? $new_instance['userlocal'] : '';
+        	$instance['titre'] = ( !empty( $new_instance['titre'] ) ) ? strip_tags( $new_instance['titre'] ) : '';
+        	$instance['nbrmax'] = ( !empty( $new_instance['nbrmax'] ) ) ? $new_instance['nbrmax'] : '';
+		$instance['host'] = ( !empty( $new_instance['host'] ) ) ? $new_instance['host'] : '';
+		$instance['port'] = ( !empty( $new_instance['port'] ) ) ? $new_instance['port'] : '';
+		$instance['passworddistant'] = ( !empty( $new_instance['passworddistant'] ) ) ? $new_instance['passworddistant'] : '';
+        	$instance['userdistant'] = ( !empty( $new_instance['userdistant'] ) ) ? strip_tags( $new_instance['userdistant'] ) : '';
 		$instance['dbnamedistant'] = ( !empty( $new_instance['dbnamedistant'] ) ) ? strip_tags( $new_instance['dbnamedistant'] ) : '';
-        $instance['dbnamelocal'] = ( !empty( $new_instance['dbnamelocal'] ) ) ? $new_instance['dbnamelocal'] : '';
-		
 		return $new_instance;
 	}
 }
