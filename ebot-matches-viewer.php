@@ -158,6 +158,9 @@ class emv_widget extends WP_Widget{
 						<label for="<?php echo $this->get_field_id("passworddistant"); ?>">Password : </label>
 						<input value="<?echo $instance["passworddistant"];?>" name="<?php echo $this->get_field_name("passworddistant"); ?>" id="<?php echo $this->get_field_id("passworddistant"); ?>" type="text"/>
 					</p>
+					<br>
+					<hr>
+					<hr>
 					<? if ( !empty($instance['host']) && !empty($instance['port']) && !empty($instance['dbnamedistant']) && !empty($instance['userdistant']) && !empty($instance['passworddistant']) ){ ?>
 						<p><?
 							$host= $instance["host"];
@@ -166,18 +169,22 @@ class emv_widget extends WP_Widget{
 							$userdist= $instance["userdistant"];
 							$passworddist= $instance["passworddistant"];
 							try {
-								$bdd = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbnamedist.'', ''.$userdist.'', ''.$passworddist.'');
-								echo "Connexion eBot réussi ! =)";
+								$bdd = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbnamedist.'', ''.$userdist.'', ''.$passworddist.'', array(PDO::ATTR_TIMEOUT => 5));
+								if ($bdd){
+									echo '<center><i class="fas fa-check"></i> Connexion eBot réussi ! =)</center>';
+								}
 							}
 							catch (Exception $e)
 							{
-								die('Erreur : ' . $e->getMessage());
+								echo 'Erreur : ' . $e->getMessage();
 							}
 						?></p>
-					<? } ?>
+					<hr>
+					<hr>
+					<br>
+					 <? } ?>
 			</div>
-			<hr>
-			<p>Merci DeStrO pour l'eBot. Widget dev. par Bouman.</p>
+			<p>Merci DeStrO pour l'eBot.<br>Widget dev. par Bouman.</p>
 		<?
 	}
 	
