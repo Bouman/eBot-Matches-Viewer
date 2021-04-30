@@ -18,15 +18,16 @@ Salut à tous,
 Grâce à ce plugin d'affichage de résultats de matchs Counter-Strike Global Offensive (CSGO), vous n'avez plus besoin d'ajouter manuellement vos matchs CSGO dans vos panel d'admin de votre site web.
 Vous avez juste à faire vos matchs sur vos serveur CSGO avec l'eBot et ce plugin récupère et affiche vos matchs sur votre site communautaire ou multi-gaming.
 Simple et efficace.
-
+	
 ////////////////////////
+	
 Hi everybody,
 With this plugin display results of Counter-Strike Global Offensive (CSGO) Matches, you no longer need to manually add your matches CSGO in the admin panel of your website. 
 You just have to make your games on your server with the CSGO EbOt and this plugin retrieves and displays your games on your community site or multi-gaming.
 Simple and effective.
-
+	
 == Installation ==
-
+	
 1. Upload the `ebot-matches-viewer` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Configure options
