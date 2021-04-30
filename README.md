@@ -32,12 +32,12 @@ Simple and effective.
 
 Your server Mysql eBot is different that website.
 
-IP-ebot           	 IP-web
- ebot                  serveur web
- ____                     ____
-|    |    Connection     |    |
-|    | <---------------> |    |
-|____|  mysql distant    |____|
+	IP-ebot           	 IP-web
+ 	ebot                  serveur web
+	 ____                     ____
+	|    |    Connection     |    |
+	|    | <---------------> |    |
+	|____|  mysql distant    |____|
 	
 Step 1: Give power in phpmyadmin on Server eBot:
 SQL Command : 
