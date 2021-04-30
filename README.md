@@ -73,6 +73,9 @@ Write at : ndjbouman@gmail.com
 2. Widget Client view
 
 == Changelog ==
+= 2.0 = 
+Only private database
+
 = 1.5 = Preview
 * Mode Option "B" eBot Online working.
 
