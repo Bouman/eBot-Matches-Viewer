@@ -158,8 +158,8 @@ class emv_widget extends WP_Widget{
 						<label for="<?php echo $this->get_field_id("passworddistant"); ?>">Password : </label>
 						<input value="<?echo $instance["passworddistant"];?>" name="<?php echo $this->get_field_name("passworddistant"); ?>" id="<?php echo $this->get_field_id("passworddistant"); ?>" type="text"/>
 					</p>
-					<?php if ( !empty($instance['host']) && !empty($instance['port']) && !empty($instance['dbnamedistant']) && !empty($instance['userdistant']) && !empty($instance['passworddistant']) ){
-						<p>
+					<? if ( !empty($instance['host']) && !empty($instance['port']) && !empty($instance['dbnamedistant']) && !empty($instance['userdistant']) && !empty($instance['passworddistant']) ){ ?>
+						<p><?
 							$host= $instance["host"];
 							$port= $instance["port"];
 							$dbnamedist= $instance["dbnamedistant"];
@@ -174,8 +174,8 @@ class emv_widget extends WP_Widget{
 							{
 								die('Erreur : ' . $e->getMessage());
 							}
-						</p>
-					} ?>
+						?></p>
+					<? } ?>
 			</div>
 			<hr>
 			<p>Merci DeStrO pour l'eBot. Widget dev. par Bouman.</p>
