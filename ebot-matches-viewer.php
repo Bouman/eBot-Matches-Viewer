@@ -167,8 +167,7 @@ class emv_widget extends WP_Widget{
 							$passworddist= $instance["passworddistant"];
 							try {
 								$bdd = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbnamedist.'', ''.$userdist.'', ''.$passworddist.'');
-								$bdd>setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-								echo "Connexion eBot réussi !";
+								echo "Connexion eBot réussi ! =)";
 							}
 							catch (Exception $e)
 							{
