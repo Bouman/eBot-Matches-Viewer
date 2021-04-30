@@ -1,14 +1,14 @@
 # eBot-match-viewer
 Plugin Wordpress eBot
 
-=== Simple Staff List ===
-Contributors: Boudjelal Yannick *Bouman*
-Tags: eBot, matche, matches, match, matchs, 
-Requires at least: 3.0
-Tested up to: 5.7.1
-Stable tag: 5.7.1
-License: 
-License URI: https://github.com/Bouman/eBot-match-viewer
+	=== Simple Staff List ===
+	Contributors: Boudjelal Yannick *Bouman*
+	Tags: eBot, matche, matches, match, matchs, 
+	Requires at least: 3.0
+	Tested up to: 5.7.1
+	Stable tag: 5.7.1
+	License: 
+	License URI: https://github.com/Bouman/eBot-match-viewer
 
 Un simple widget pour intégrer les matchs de l'eBot sur votre site communautaire.
 A simple widget to integrate the eBot matches on your community site.
