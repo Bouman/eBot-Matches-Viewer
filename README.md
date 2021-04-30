@@ -5,10 +5,10 @@ Plugin Wordpress eBot
 Contributors: Boudjelal Yannick *Bouman*
 Tags: eBot, matche, matches, match, matchs, 
 Requires at least: 3.0
-Tested up to: 3.8.1
-Stable tag: 3.8.1
+Tested up to: 5.7.1
+Stable tag: 5.7.1
 License: 
-License URI: https://github.com/Asso-nOStReSs/eBot-matches-viewer
+License URI: https://github.com/Bouman/eBot-match-viewer
 
 Un simple widget pour intégrer les matchs de l'eBot sur votre site communautaire.
 A simple widget to integrate the eBot matches on your community site.
@@ -30,58 +30,41 @@ Simple and effective.
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Configure options
 
-Options "A" :  Your server Mysql eBot is different that website.
+Your server Mysql eBot is different that website.
 
-    IP-ebot           		 IP-web
-     ebot                  serveur web
-     ____                     ____
-	|    |    Connection     |    |
-	|    | <---------------> |    |
-	|____|  mysql distant    |____|
+IP-ebot           	 IP-web
+ ebot                  serveur web
+ ____                     ____
+|    |    Connection     |    |
+|    | <---------------> |    |
+|____|  mysql distant    |____|
 	
-	Step 1: Give power in phpmyadmin on Server eBot:
-			SQL Command : 
-				grant all privileges on *.* to user@IP-web identified by "destress";   ===> //// user = (Exemple: ebotv3)  IP-web = (Exemple: gw8.ovh.net) is your website is from OVH.
-				flush privileges;
+Step 1: Give power in phpmyadmin on Server eBot:
+SQL Command : 
+grant all privileges on *.* to user@IP-web identified by "motdepassemysql";    ===> //// user = (Exemple: ebotv3)  IP-web = (Exemple: gw8.ovh.net) Your website is from OVH.
+flush privileges;
 				
-	Step 2: Connecting on dedicated server by SSH - Putty - :
-			Command :
-				nano /etc/mysql/my.cnf
-			And edit :	
-				Remplace : bind-address = 127.0.0.1
-				to : #bind-address = 127.0.0.1
+Step 2: Connecting on dedicated server by SSH - Putty - :
+Command :
+	nano /etc/mysql/my.cnf
+
+And edit :	
+	Remplace : bind-address = 127.0.0.1
+	to : #bind-address = 127.0.0.1
 				
-				//comments french:
-				 Par défaut, MySQL n'écoute que localhost. . Il faudra désactiver la ligne (ajout de : '#') relative au bind-address dans le fichier de configuration mysql:
-				# bind-address = 127.0.0.1
-			Restart :
-				/etc/init.d/mysql restart
+//comments french:
+Par défaut, MySQL n'écoute que localhost. . Il faudra désactiver la ligne (ajout de : '#') relative au bind-address dans le fichier de configuration mysql:
+			# bind-address = 127.0.0.1
+
+Restart :
+/etc/init.d/mysql restart
 				
 Ready You can configure Widget for connect on database Distant.
-				
-Options "B" :  eBot online (http://ebot.esport-tools.net/) In development.
-
- ebot.esport-tools.net     	 IP-web
-     ebot                  serveur web
-     ____                     ____
-	|    |    Connection     |    |
-	|    | <---------------> |    |
-	|____|  mysql distant    |____|
-	
-Options "C" :  Your server Mysql eBot and website are the same.
-
- IP-ebot = IP-web
- serveur web + ebot
-     ________
-	|        |
-	|        |
-	|________|
-				
-Ready You can configure Widget for connect on database local with user and password (Exemple : user=ebotv3 password=ebotv3).
 
 2.Configure Number of matches to display
 
 == Frequently Asked Questions ==
+
 
 Write at : ndjbouman@gmail.com
 
