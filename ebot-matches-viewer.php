@@ -67,12 +67,13 @@ class emv_widget extends WP_Widget{
 		<?	
 				/* Connection Distante mysql */
 				$host= $instance["host"];
-				$instancebnamedist= $instance["dbnamedistant"];
+				$port= $instance["port"];
+				$dbnamedist= $instance["dbnamedistant"];
 				$userdist= $instance["userdistant"];
 				$passworddist= $instance["passworddistant"];
 				$nbrmax= $instance["nbrmax"];
 					try{
-					$bdd = new PDO('mysql:host='.$host.';dbname='.$instancebnamedist.'', ''.$userdist.'', ''.$passworddist.'');
+					$bdd = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbnamedist.'', ''.$userdist.'', ''.$passworddist.'');
 					$affreq = $bdd->prepare('SELECT * FROM matchs ORDER BY id DESC LIMIT 0, '.$nbrmax.'');
 					$affreq->execute();
 					}
@@ -157,6 +158,24 @@ class emv_widget extends WP_Widget{
 						<label for="<?php echo $this->get_field_id("passworddistant"); ?>">Password : </label>
 						<input value="<?echo $instance["passworddistant"];?>" name="<?php echo $this->get_field_name("passworddistant"); ?>" id="<?php echo $this->get_field_id("passworddistant"); ?>" type="text"/>
 					</p>
+					<? if ( !empty($instance['host']) && !empty($instance['port']) && !empty($instance['dbnamedistant']) && !empty($instance['userdistant']) && !empty($instance['passworddistant']) ){
+						<p>
+							$host= $instance["host"];
+							$port= $instance["port"];
+							$dbnamedist= $instance["dbnamedistant"];
+							$userdist= $instance["userdistant"];
+							$passworddist= $instance["passworddistant"];
+							try {
+								$bdd = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbnamedist.'', ''.$userdist.'', ''.$passworddist.'');
+								$bdd>setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+								echo "Connexion eBot réussi !";
+							}
+							catch (Exception $e)
+							{
+								die('Erreur : ' . $e->getMessage());
+							}
+						</p>
+					} ?>
 			</div>
 			<hr>
 			<p>Merci DeStrO pour l'eBot. Widget dev. par Bouman.</p>
