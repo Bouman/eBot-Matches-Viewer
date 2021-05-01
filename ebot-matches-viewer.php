@@ -18,7 +18,7 @@ function emv_register_widget () {
 }
  
 /**
- * Adds Foo_Widget widget.
+ * Adds emv_Widget widget.
  */
 class emv_Widget extends WP_Widget {
  
@@ -102,10 +102,10 @@ class emv_Widget extends WP_Widget {
 		$instancedefaut = array(
 			"title" => "eBoT Matches",
 			"nbrmax" => "5",
-			"host" => "90.63.12.82",
+			"host" => "IP ou Domain",
 			"port" => "3306",
-			"userdistant" => "respawn",
-			"passworddistant" => "sqlrespawn",
+			"userdistant" => "ebotv3",
+			"passworddistant" => "ebotv3",
 			"dbnamedistant" => "ebotv3"
 		);
 		$instance = wp_parse_args($instance,$instancedefaut);
