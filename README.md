@@ -1,32 +1,23 @@
 # eBot-match-viewer
 Plugin Wordpress eBot
 
-	=== eBot Matches Viewer ===
-	Contributors: Boudjelal Yannick *Bouman*
-	Tags: eBot, matche, matches, match, matchs, 
-	Requires at least: 3.0
-	Tested up to: 5.7.1
-	Stable tag: 5.7.1
-	License: GPLv2 or later
-	License URI: https://github.com/Bouman/eBot-match-viewer
-
 Un simple widget pour intégrer les matchs de l'eBot sur votre site communautaire.
 A simple widget to integrate the eBot matches on your community site.
 
-== Description ==
+
+	== Description ==
 Salut à tous,
 Grâce à ce plugin d'affichage de résultats de matchs Counter-Strike Global Offensive (CSGO), vous n'avez plus besoin d'ajouter manuellement vos matchs CSGO dans vos panel d'admin de votre site web.
 Vous avez juste à faire vos matchs sur vos serveur CSGO avec l'eBot et ce plugin récupère et affiche vos matchs sur votre site communautaire ou multi-gaming.
 Simple et efficace.
-	
-////////////////////////
-	
+		
 Hi everybody,
 With this plugin display results of Counter-Strike Global Offensive (CSGO) Matches, you no longer need to manually add your matches CSGO in the admin panel of your website. 
 You just have to make your games on your server with the CSGO EbOt and this plugin retrieves and displays your games on your community site or multi-gaming.
 Simple and effective.
+
 	
-== Installation ==
+	== Installation ==
 	
 1. Upload the `ebot-matches-viewer` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
@@ -40,6 +31,7 @@ Your server Mysql eBot is different that website.
 	|    |    Connection     |    |
 	|    | <---------------> |    |
 	|____|  mysql distant    |____|
+	
 	
 Step 1: Give power in phpmyadmin on Server eBot:
 SQL Command : 
@@ -77,6 +69,7 @@ Write at : ndjbouman@gmail.com
 == Changelog ==
 = 2.0 = 
 Only private database
+Add css file
 
 = 1.5 = Preview
 * Mode Option "B" eBot Online working.
