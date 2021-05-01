@@ -1,0 +1,18 @@
+<style>
+table.ebot tr:nth-child(odd){
+  background-color:#282828 transparent;
+}
+table.ebot {
+	border: 0pt;
+}
+th.ebot {
+	border: 1pt solid grey;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+tr.border_bottom td {
+	border-bottom: 1pt solid grey;
+	border-right: 0pt;
+}
+</style>
