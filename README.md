@@ -7,7 +7,7 @@ Plugin Wordpress eBot
 	Requires at least: 3.0
 	Tested up to: 5.7.1
 	Stable tag: 5.7.1
-	License: 
+	License: GPLv2 or later
 	License URI: https://github.com/Bouman/eBot-match-viewer
 
 Un simple widget pour intégrer les matchs de l'eBot sur votre site communautaire.
