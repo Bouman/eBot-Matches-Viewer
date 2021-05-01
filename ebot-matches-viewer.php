@@ -79,9 +79,9 @@ class emv_Widget extends WP_Widget {
 						echo $row['id'];
 						echo "</td><td>";
 							if($team1scr>$team2src) 
-								echo '<strong>'.$team1name.'&nbsp;-&nbsp;<font color="green">'.$team1scr.'</strong></font>&nbsp;:&nbsp;<font color="red">'.$team2src.'</font>&nbsp;-&nbsp;'.$team2name.'';
+								echo '<strong>'.$team1name.'&nbsp;-&nbsp;<font color="green">'.$team1scr.'</font></strong>&nbsp;:&nbsp;<font color="red">'.$team2src.'</font>&nbsp;-&nbsp;'.$team2name.'';
 							elseif($team1scr<$team2src) 
-								echo ''.$team1name.'&nbsp;-&nbsp;<font color="red">'.$team1scr.'</font>&nbsp;:&nbsp;<font color="green">'.$team2src.'</font>&nbsp;-&nbsp;<strong>'.$team2name.'</strong>';
+								echo ''.$team1name.'&nbsp;-&nbsp;<font color="red">'.$team1scr.'</font>&nbsp;:&nbsp;<strong><font color="green">'.$team2src.'</font>&nbsp;-&nbsp;'.$team2name.'</strong>';
 							else 
 								echo ''.$team1name.'&nbsp;-&nbsp;<font color="bleue">'.$team1scr.'</font>&nbsp;:&nbsp;<font color="bleue">'.$team2src.'</font>&nbsp;-&nbsp;'.$team2name.'';
 						echo "</td></tr>";
@@ -205,5 +205,5 @@ class emv_Widget extends WP_Widget {
 		return $instance;
     }
  
-} // class Foo_Widget 
+} // class widget 
 ?>
