@@ -3,17 +3,17 @@
 * @package eBot-Matches-Viewer
 * @version 2.0.1
 Plugin Name: eBot Matches Viewer
-Plugin URI: https://github.com/Asso-nOStReSs/eBot-matches-viewer
+Plugin URI: https://github.com/Bouman/eBot-Matches-Viewer
 Description: Un simple widget pour intégrer les matchs de l'eBot sur votre site communautaire.
 Author: Boudjelal Yannick *Bouman*
 Version: 2.0.1
 Author URI: https://www.asso-respawn.fr
 */
 
-add_action ('widgets_init', 'twid_register_widget');
-function twid_register_widget () {
-	wp_register_style( 'testplugin', plugins_url( 'testplugin/theme.css' ) );
-	wp_enqueue_style( 'testplugin' );
+add_action ('widgets_init', 'emv_register_widget');
+function emv_register_widget () {
+	wp_register_style( 'ebot-matches-viewer', plugins_url( 'ebot-matches-viewer/theme.css' ) );
+	wp_enqueue_style( 'ebot-matches-viewer' );
     return register_widget('emv_Widget');
 }
  
