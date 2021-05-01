@@ -4,7 +4,7 @@ Tags: eBot, matche, matches, match, matchs,
 Requires at least: 3.0
 Tested up to: 5.7.1
 Stable tag: 5.7.1
-License: GPLv2 or later
+License: GPL- 3.0 License
 License URI: https://github.com/Bouman/eBot-match-viewer
 Un simple widget pour intégrer les matchs de l'eBot sur votre site communautaire. A simple widget to integrate the eBot matches on your community site.
 
