@@ -1,71 +1,55 @@
-<!-- Ici Le CSS du tableau d'affichage -->
-<style>
-table.ebot tr:nth-child(odd){
-  background-color:#282828 transparent;
-}
-table.ebot {
-	border: 0pt;
-}
-th.ebot {
-	border: 1pt solid grey;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border-radius:10px;
-}
-tr.border_bottom td {
-	border-bottom: 1pt solid grey;
-	border-right: 0pt;
-}
-</style>
-<!-- FIN du CSS -->
 <?php
 /**
 * @package eBot-Matches-Viewer
-* @version 2.0.0
+* @version 2.0.1
 Plugin Name: eBot Matches Viewer
 Plugin URI: https://github.com/Asso-nOStReSs/eBot-matches-viewer
 Description: Un simple widget pour intégrer les matchs de l'eBot sur votre site communautaire.
 Author: Boudjelal Yannick *Bouman*
-Version: 2.0.0
+Version: 2.0.1
 Author URI: https://www.asso-respawn.fr
 */
 
-add_action ('widgets_init', 'emv_register_widget');
-
-function emv_register_widget () {
-    return register_widget('emv_widget');
+add_action ('widgets_init', 'twid_register_widget');
+function twid_register_widget () {
+	wp_register_style( 'testplugin', plugins_url( 'testplugin/theme.css' ) );
+	wp_enqueue_style( 'testplugin' );
+    return register_widget('emv_Widget');
 }
-
-class emv_widget extends WP_Widget{
-
-	public function emv_widget() {
-		$options = array(
-			"classname"=>"ebot-matches",
-			"description"=>"Affiche les scrores, effectuer avec l'eBot sur vos serveurs."
-		);
-	/*	$control = array(
-			"width"=>1000,
-			"height"=>500
-		);
-	*/
-		$this->WP_Widget("emv-ebot-matches","eBoT Matches Viewer",$options);
-	}
-	
-	/**
+ 
+/**
+ * Adds Foo_Widget widget.
+ */
+class emv_Widget extends WP_Widget {
+ 
+    /**
+     * Register widget with WordPress.
+     */
+    public function __construct() {
+        parent::__construct(
+            'emv_widget', // Base ID
+            'eBot Matches Viewer', // Name
+            array( 'description' => __( 'Affiche les scrores de eBot sur vos serveurs.', 'text_domain' ), ) // Args
+        );
+    }
+ 
+    /**
      * Front-end display of widget.
      *
      * @see WP_Widget::widget()
      *
      * @param array $args     Widget arguments.
      * @param array $instance Saved values from database.
-    */
-	public function widget($args,$instance){
-		extract($args);
-		echo $before_widget;
-		echo $before_title.$instance["titre"].$after_title;
-		?>
-		<?	
-				/* Connection Distante mysql */
+     */
+    public function widget( $args, $instance ) {
+        extract( $args );
+        $title = apply_filters( 'widget_title', $instance['title'] );
+        echo $before_widget;
+        if ( ! empty( $title ) ) {
+            echo $before_title . $title . $after_title;
+        }
+		
+		/* Connection Distante mysql */
 				$host= $instance["host"];
 				$port= $instance["port"];
 				$dbnamedist= $instance["dbnamedistant"];
@@ -103,32 +87,39 @@ class emv_widget extends WP_Widget{
 						echo "</td></tr>";
 					}
 			echo'</table>';
-
-		echo $after_widget;
 		$bdd == null;
-	}
-	
-	/**
+        echo $after_widget;
+    }
+ 
+    /**
      * Back-end widget form.
      *
      * @see WP_Widget::form()
      *
      * @param array $instance Previously saved values from database.
-    */
-	public function form( $instance ) {
+     */
+    public function form( $instance ) {
 		$instancedefaut = array(
-			"titre" => "eBoT Matches",
+			"title" => "eBoT Matches",
 			"nbrmax" => "5",
+			"host" => "90.63.12.82",
 			"port" => "3306",
-			"userdistant" => "ebotv3",
+			"userdistant" => "respawn",
+			"passworddistant" => "sqlrespawn",
 			"dbnamedistant" => "ebotv3"
 		);
-		$instance = wp_parse_args($instance,$instancedefaut)
-		?>
-			<div id="form">
+		$instance = wp_parse_args($instance,$instancedefaut);
+        if ( isset( $instance[ 'title' ] ) ) {
+            $title = $instance[ 'title' ];
+        }
+        else {
+            $title = __( 'New title', 'text_domain' );
+        }
+        ?>
+		<div id="form">
 			<p>
-				<label for="<?php echo $this->get_field_id("titre"); ?>">Titre : </label>
-				<input value="<?echo $instance["titre"];?>" name="<?php echo $this->get_field_name("titre"); ?>" id="<?php echo $this->get_field_id("titre"); ?>" type="text"/>
+				<label for="<?php echo $this->get_field_id("title"); ?>">Titre : </label>
+				<input value="<?echo $instance["title"];?>" name="<?php echo $this->get_field_name("title"); ?>" id="<?php echo $this->get_field_id("title"); ?>" type="text"/>
 			</p>
 			<p>
 				<label for="<?php echo $this->get_field_id("nbrmax"); ?>">Nombre max de match : </label>
@@ -180,6 +171,7 @@ class emv_widget extends WP_Widget{
 								echo '<br>Erreur de Time-out = Mauvaise configuration host,port,user,password';
 								echo '<br>Refus de connexion = Autoriser le domain IP-web de votre hébergeur "STEP 1 & 2"';
 							}
+							$bdd = null;
 						?></p>
 					<hr>
 					<hr>
@@ -187,10 +179,11 @@ class emv_widget extends WP_Widget{
 					 <? } ?>
 			</div>
 			<p>Merci DeStrO pour l'eBot.<br>Widget dev. par Bouman.</p>
-		<?
-	}
-	
-	/**
+		 
+    <?php
+    }
+ 
+    /**
      * Sanitize widget form values as they are saved.
      *
      * @see WP_Widget::update()
@@ -199,17 +192,18 @@ class emv_widget extends WP_Widget{
      * @param array $old_instance Previously saved values from database.
      *
      * @return array Updated safe values to be saved.
-    */
-	function update($new_instance, $old_instance){
+     */
+    public function update( $new_instance, $old_instance ) {
 		$instance = array();
-        	$instance['titre'] = ( !empty( $new_instance['titre'] ) ) ? strip_tags( $new_instance['titre'] ) : '';
-        	$instance['nbrmax'] = ( !empty( $new_instance['nbrmax'] ) ) ? $new_instance['nbrmax'] : '';
+        $instance['title'] = ( !empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+        $instance['nbrmax'] = ( !empty( $new_instance['nbrmax'] ) ) ? $new_instance['nbrmax'] : '';
 		$instance['host'] = ( !empty( $new_instance['host'] ) ) ? $new_instance['host'] : '';
 		$instance['port'] = ( !empty( $new_instance['port'] ) ) ? $new_instance['port'] : '';
 		$instance['passworddistant'] = ( !empty( $new_instance['passworddistant'] ) ) ? $new_instance['passworddistant'] : '';
-        	$instance['userdistant'] = ( !empty( $new_instance['userdistant'] ) ) ? strip_tags( $new_instance['userdistant'] ) : '';
+        $instance['userdistant'] = ( !empty( $new_instance['userdistant'] ) ) ? strip_tags( $new_instance['userdistant'] ) : '';
 		$instance['dbnamedistant'] = ( !empty( $new_instance['dbnamedistant'] ) ) ? strip_tags( $new_instance['dbnamedistant'] ) : '';
-		return $new_instance;
-	}
-}
+		return $instance;
+    }
+ 
+} // class Foo_Widget 
 ?>
